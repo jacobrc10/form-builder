@@ -15,7 +15,7 @@ A dynamic form system using config-driven rendering and schema validation with Z
 🧠 State Management (optional)
 - Local React state (useState/useReducer)
 🧪 Testing
-- Jest — Unit tests
+- Vitest — Unit tests
 - Testing Library — Component testing
 💾 Persistence (optional feature)
 Browser localStorage (no backend needed)
