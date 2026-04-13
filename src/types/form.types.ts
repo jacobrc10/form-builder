@@ -1,4 +1,4 @@
-type FieldType = "text" | "number" | "email" | "password" | "date";
+export type FieldType = "text" | "number" | "email" | "password" | "date";
 
 export interface FormField {
   id: string;

@@ -1,10 +1,12 @@
 import Field from './Field'
 import { render } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
+import type { FormField } from '../../types/form.types'
 
 
 describe('Field', () => {
   it('renders correctly', () => {
-    const field = {
+    const field : FormField = {
       id: 'test',
       name: 'test',
       label: 'Test Field',
