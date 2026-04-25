@@ -2,8 +2,8 @@ import { useState } from 'react'
 import reactLogo from '../../../public/react.svg'
 import viteLogo from '../../../public/vite.svg'
 import heroImg from '../../../public/hero.png'
+import FormRenderer from '../FormRenderer/FormRenderer'
 import { formFields } from '../../constants/formFieldData'
-import Field from '../Field/Field'
 import './App.css'
 
 function App() {
@@ -23,11 +23,7 @@ function App() {
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
           <h2>Form Fields</h2>
-          <ul>
-            {formFields.map((field) => (
-              <Field key={field.id} {...field} />
-            ))}
-          </ul>
+          <FormRenderer fields={formFields} />
         </div>
       </section>
     </>
