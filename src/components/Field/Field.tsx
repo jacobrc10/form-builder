@@ -21,7 +21,6 @@ const Field = ({
         minLength={minLength}
         maxLength={maxLength}
         pattern={pattern?.toString()}
-        aria-label={`${id}-form-field-input`}
       />
     </li>
   );
