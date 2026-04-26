@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import reactLogo from '../../../public/react.svg'
 import viteLogo from '../../../public/vite.svg'
 import heroImg from '../../../public/hero.png'
@@ -17,7 +16,7 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Get started</h1>
+          <h1>Form Builder</h1>
           <h2>Testing hot reload</h2>
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
