@@ -1,29 +1,30 @@
 import type { FormField } from "../../types/form.types";
 
+
+interface FieldProps {
+  updateFormData: (name: string, value: any) => void;
+  fieldData: FormField;
+};
+
 const Field = ({
-  id,
-  name,
-  label,
-  type,
-  required,
-  minLength,
-  maxLength,
-  pattern,
-} : FormField) => {
+  updateFormData,
+  fieldData,
+}: FieldProps) => {
   return (
-    <li key={id}>
-      <label htmlFor={name}>{label}</label>
+    <li key={fieldData.id}>
+      <label htmlFor={fieldData.name}>{fieldData.label}</label>
       <input
-        type={type}
-        id={name}
-        name={name}
-        required={required}
-        minLength={minLength}
-        maxLength={maxLength}
-        pattern={pattern?.toString()}
+        type={fieldData.type}
+        id={fieldData.name}
+        name={fieldData.name}
+        required={fieldData.required}
+        minLength={fieldData.minLength}
+        maxLength={fieldData.maxLength}
+        pattern={fieldData.pattern?.toString()}
+        onChange={(e) => updateFormData(fieldData.name, e.target.value)}
       />
     </li>
   );
 };
 
-export default Field
+export default Field;
