@@ -52,18 +52,22 @@ describe('Field', () => {
   });
 
   it('should have limited length when maxLength is set', async () => {
+    const MAX_LENGTH = 5;
+    const TEST_STRING = '1234567';
     const field : FormField = {
       id: 'test',
       name: 'test',
       label: 'Test Field',
       type: 'text',
-      maxLength: 5
+      maxLength: MAX_LENGTH
     }
 
     const { getByRole } = render(<Field fieldData={field} updateFormData={mockUpdateFormData} />);
     const input = getByRole('textbox', { name: 'Test Field' });
-    expect(input).toHaveAttribute('maxLength', '5');
-    await userEvent.type(input, 'This is a long input');
-    expect(input).toHaveValue('This ');
+    expect(input).toHaveAttribute('maxLength', MAX_LENGTH.toString());
+
+    // Test that maxLength limits user input (browser-enforced behavior)
+    await userEvent.type(input, TEST_STRING);
+    expect(input).toHaveValue(TEST_STRING.slice(0, MAX_LENGTH));
   });
 })
