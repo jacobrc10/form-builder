@@ -14,9 +14,6 @@ const FormRenderer = ({ fields }: { fields: FormField[] }) => {
 
   return (
     <>
-      <button onClick={() => console.log("Form data on submit:", formData)}>
-        Submit
-      </button>
       <form id="form-renderer">
         {fields.length > 0 ? (
           fields.map((field: FormField) => (
@@ -29,6 +26,9 @@ const FormRenderer = ({ fields }: { fields: FormField[] }) => {
         ) : (
           <p>No fields to display</p>
         )}
+        <button type="submit" onClick={() => console.log("Form data on submit:", formData)}>
+          Submit
+        </button>
       </form>
     </>
   );
