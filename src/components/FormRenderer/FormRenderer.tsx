@@ -12,9 +12,15 @@ const FormRenderer = ({ fields }: { fields: FormField[] }) => {
     }));
   };
 
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form data on submit:", formData);
+  };
+
   return (
     <>
-      <form id="form-renderer">
+      <form id="form-renderer" onSubmit={handleSubmit}>
         {fields.length > 0 ? (
           fields.map((field: FormField) => (
             <Field
@@ -26,7 +32,7 @@ const FormRenderer = ({ fields }: { fields: FormField[] }) => {
         ) : (
           <p>No fields to display</p>
         )}
-        <button type="submit" onClick={() => console.log("Form data on submit:", formData)}>
+        <button type="submit">
           Submit
         </button>
       </form>
