@@ -25,7 +25,7 @@ export const formFields: FormField[] = [
     label: "Email",
     type: "email",
     required: true,
-    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   },
   {
     id: "test-id-4",

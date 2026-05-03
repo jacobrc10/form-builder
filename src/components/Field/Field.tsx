@@ -20,7 +20,7 @@ const Field = ({
         required={fieldData.required}
         minLength={fieldData.minLength}
         maxLength={fieldData.maxLength}
-        pattern={fieldData.pattern?.toString()}
+        pattern={fieldData.pattern?.source}
         onChange={(e) => updateFormData(fieldData.name, e.target.value)}
       />
     </li>

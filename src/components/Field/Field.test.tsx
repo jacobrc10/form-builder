@@ -32,7 +32,7 @@ describe('Field', () => {
     expect(input).toHaveAttribute('required');
     expect(input).toHaveAttribute('minLength', '2');
     expect(input).toHaveAttribute('maxLength', '100');
-    expect(input).toHaveAttribute('pattern', '/^[a-zA-Z]+$/');
+    expect(input).toHaveAttribute('pattern', '^[a-zA-Z]+$');
   });
 
   it('should render without optional attributes', () => {
