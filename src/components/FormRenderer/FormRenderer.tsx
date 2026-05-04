@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const FormRenderer = ({ fields }: { fields: FormField[] }) => {
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateFormData = (name: string, value: any) => {
     setFormData((prevData) => ({
@@ -12,10 +13,13 @@ const FormRenderer = ({ fields }: { fields: FormField[] }) => {
     }));
   };
 
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     console.log("Form data on submit:", formData);
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 1000);
   };
 
   return (
@@ -32,7 +36,7 @@ const FormRenderer = ({ fields }: { fields: FormField[] }) => {
         ) : (
           <p>No fields to display</p>
         )}
-        <button type="submit">
+        <button type="submit" disabled={isSubmitting}>
           Submit
         </button>
       </form>
