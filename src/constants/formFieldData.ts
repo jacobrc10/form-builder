@@ -2,7 +2,6 @@ import type { FormField } from "../types/form.types";
 
 export const formFields: FormField[] = [
   {
-    id: "test-id-1",
     name: "firstName",
     label: "First Name",
     type: "text",
@@ -11,7 +10,6 @@ export const formFields: FormField[] = [
     maxLength: 50,
   },
     {
-    id: "test-id-2",
     name: "lastName",
     label: "Last Name",
     type: "text",
@@ -20,7 +18,6 @@ export const formFields: FormField[] = [
     maxLength: 50,
   },
   {
-    id: "test-id-3",
     name: "email",
     label: "Email",
     type: "email",
@@ -28,7 +25,6 @@ export const formFields: FormField[] = [
     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   },
   {
-    id: "test-id-4",
     name: "password",
     label: "Password",
     type: "password",
@@ -36,7 +32,6 @@ export const formFields: FormField[] = [
     minLength: 8,
   },
   {
-    id: "test-id-5",
     name: "birthDate",
     label: "Birth Date",
     type: "date",
