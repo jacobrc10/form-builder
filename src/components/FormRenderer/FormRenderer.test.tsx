@@ -1,7 +1,6 @@
 import FormRenderer from "./FormRenderer";
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
-import userEvent from '@testing-library/user-event'
 import { formFields } from "../../constants/formFieldData";
 import type { FormField } from "../../types/form.types";
 
@@ -9,7 +8,6 @@ import type { FormField } from "../../types/form.types";
 describe('FormRenderer', () => {
 
     const testField: FormField = {
-        id: 'test',
         name: 'test',
         label: 'Test Field',
         type: 'text',
@@ -22,7 +20,7 @@ describe('FormRenderer', () => {
     
   it('should render form fields', () => {
     const { getByRole } = render(<FormRenderer fields={[testField]} />);
-    const input = getByRole('textbox', { name: 'Test Field' });
+    const input = getByRole('textbox', { name: testField.label });
     expect(input).toBeInTheDocument();
   });
 
