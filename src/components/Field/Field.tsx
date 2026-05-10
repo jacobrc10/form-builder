@@ -1,10 +1,10 @@
 import type { UseFormRegister, FieldErrors } from "react-hook-form";
-import type { FormField } from "../../types/form.types";
+import type { FormField, FormFieldList } from "../../types/form.types";
 
 
 interface FieldProps {
-  register: UseFormRegister<FormField>;
-  errors: FieldErrors<FormField>;
+  register: UseFormRegister<FormFieldList>;
+  errors: FieldErrors<FormFieldList>;
   fieldData: FormField;
 };
 
@@ -17,16 +17,16 @@ const Field = ({
     <div>
       <label htmlFor={fieldData.name}>{fieldData.label}</label>
       <input
-        {...register(fieldData.name as keyof FormField, {
+        {...register(fieldData.name as keyof FormFieldList, {
           required: fieldData.required,
           minLength: fieldData.minLength,
           maxLength: fieldData.maxLength,
           pattern: fieldData.pattern,
         })}
       />
-      {errors[fieldData.name as keyof FormField] && (
+      {errors[fieldData.name as keyof FormFieldList] && (
         <p style={{ color: "red" }}>
-          {errors[fieldData.name as keyof FormField]?.message?.toString()}
+          {errors[fieldData.name as keyof FormFieldList]?.message?.toString()}
         </p>
       )}
     </div>
