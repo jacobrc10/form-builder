@@ -1,14 +1,13 @@
 import Field from './Field'
 import { describe, it, expect, vi } from 'vitest'
 import { render } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import type { FormField } from '../../types/form.types'
+import type { FieldError } from 'react-hook-form'
 
 
 describe('Field', () => {
 
   const testField: FormField = {
-      id: 'test',
       name: 'test',
       label: 'Test Field',
       type: 'text',
@@ -17,57 +16,49 @@ describe('Field', () => {
       maxLength: 100,
       pattern: /^[a-zA-Z]+$/
   };
-  const mockUpdateFormData = vi.fn();
+  const register = vi.fn();
+  const errors = undefined;
+
+  const generateError = (type: string, message: string): FieldError => {
+    return {
+      type,
+      message,
+    };
+  };
 
   it('should render correctly', () => {
-    const { getByRole } = render(<Field fieldData={testField} updateFormData={mockUpdateFormData} />);
+    const { getByRole } = render(<Field fieldData={testField} register={register} errors={errors} />);
     const input = getByRole('textbox', { name: 'Test Field' });
     expect(input).toBeInTheDocument();
   });
- 
-  it('should apply the correct attributes', () => {
-    const { getByRole } = render(<Field fieldData={testField} updateFormData={mockUpdateFormData} />);
-    const input = getByRole('textbox', { name: 'Test Field' });
-    expect(input).toHaveAttribute('type', 'text');
-    expect(input).toHaveAttribute('required');
-    expect(input).toHaveAttribute('minLength', '2');
-    expect(input).toHaveAttribute('maxLength', '100');
-    expect(input).toHaveAttribute('pattern', '^[a-zA-Z]+$');
+
+  it('should display the correct label', () => {
+    const { getByText } = render(<Field fieldData={testField} register={register} errors={errors} />);
+    const label = getByText('Test Field');
+    expect(label).toBeInTheDocument();
   });
 
-  it('should render without optional attributes', () => {
-    const field: FormField = {
-      id: 'test',
-      name: 'test',
-      label: 'Test Field',
-      type: 'text'
-    };
-    const { getByRole } = render(<Field fieldData={field} updateFormData={mockUpdateFormData} />);
-    const input = getByRole('textbox', { name: 'Test Field' });
-    expect(input).toBeInTheDocument();
-    expect(input).not.toHaveAttribute('required');
-    expect(input).not.toHaveAttribute('minLength');
-    expect(input).not.toHaveAttribute('maxLength');
-    expect(input).not.toHaveAttribute('pattern');
+  it('should display an error message when minLength validation fails', () => {
+    const errorMessage = 'Minimum length is 2';
+    const error = generateError('minLength', errorMessage);
+    const { getByText } = render(<Field fieldData={testField} register={register} errors={error} />);
+    const errorElement = getByText(errorMessage);
+    expect(errorElement).toBeInTheDocument();
   });
 
-  it('should have limited length when maxLength is set', async () => {
-    const MAX_LENGTH = 5;
-    const TEST_STRING = '1234567';
-    const field : FormField = {
-      id: 'test',
-      name: 'test',
-      label: 'Test Field',
-      type: 'text',
-      maxLength: MAX_LENGTH
-    }
+  it('should display an error message when maxLength validation fails', () => {
+    const errorMessage = 'Maximum length is 100';
+    const error = generateError('maxLength', errorMessage);
+    const { getByText } = render(<Field fieldData={testField} register={register} errors={error} />);
+    const errorElement = getByText(errorMessage);
+    expect(errorElement).toBeInTheDocument();
+  });
 
-    const { getByRole } = render(<Field fieldData={field} updateFormData={mockUpdateFormData} />);
-    const input = getByRole('textbox', { name: 'Test Field' });
-    expect(input).toHaveAttribute('maxLength', MAX_LENGTH.toString());
-
-    // Test that maxLength limits user input (browser-enforced behavior)
-    await userEvent.type(input, TEST_STRING);
-    expect(input).toHaveValue(TEST_STRING.slice(0, MAX_LENGTH));
+  it('should display an error message when pattern validation fails', () => {
+    const errorMessage = 'Invalid format';
+    const error = generateError('pattern', errorMessage);
+    const { getByText } = render(<Field fieldData={testField} register={register} errors={error} />);
+    const errorElement = getByText(errorMessage);
+    expect(errorElement).toBeInTheDocument();
   });
 })
