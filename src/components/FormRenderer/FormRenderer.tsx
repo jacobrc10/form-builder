@@ -1,15 +1,20 @@
 import Field from "../Field/Field";
-import { FormFieldListSchema, type FormField, type FormFieldList } from "../../types/form.types";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useSchemaBuilder } from "../../hooks/useSchemaBuilder";
+import type { FormField } from "../../types/form.types";
 
 const FormRenderer = ({ fields }: { fields: FormField[] }) => {
+  const formSchema = useSchemaBuilder(fields);
+  type FormFieldList = z.infer<typeof formSchema>;
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormFieldList>({
-    resolver: zodResolver(FormFieldListSchema),
+    resolver: zodResolver(formSchema),
   });
 
   const onSubmit: SubmitHandler<FormFieldList> = async (data) => {
